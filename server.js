@@ -153,7 +153,7 @@
     /**
      * Init server.
      */
-    server.listen(3030, function() {
+    server.listen(3333, function() {
         console.log('Server running at port 3030!');
     });
 
