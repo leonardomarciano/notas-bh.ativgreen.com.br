@@ -19,7 +19,7 @@
         <ValorServicos>{{valorServicos}}</ValorServicos>
         <ValorDeducoes>{{valorDeducoes}}</ValorDeducoes>
         <CodigoServico>{{codigoServico}}</CodigoServico>
-        <AliquotaServicos>{{aliquotaServicos}}</AliquotaServicos>
+        <AliquotaServicos>0.025</AliquotaServicos>
         <ISSRetido>{{issRetido}}</ISSRetido>
         {{#tomador.cpf}}
         <CPFCNPJTomador>

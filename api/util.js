@@ -1,4 +1,5 @@
 module.exports = {
+    
 
     /**
      * Build envelope.
@@ -18,7 +19,8 @@ module.exports = {
         message = mustache.render(messageTemplate, data);
 
         return mustache.render(envelopeTemplate, {
-            message: util.signXML(cert, key, message)
+            message: this.signXML(cert, key, message)
+            
         });
     },
 
@@ -133,6 +135,26 @@ module.exports = {
         }
     },
 
+
+    
+    /**
+     * Sign xml.
+     *
+     * @param {string} cert
+     * @param {string} key
+     * @param xml
+     * @returns {xml}
+     */
+    readPrivateKeyFromProtectedPem: function (path, passphrase) {
+        forge = require('node-forge');
+        var pki = forge.pki;
+        fs = require('fs');
+        var pem = fs.readFileSync(path).toString();
+        var privateKey = pki.decryptRsaPrivateKey(pem, passphrase);
+        return pki.privateKeyToPem(privateKey);
+    },
+
+
     /**
      * Sign xml.
      *
@@ -165,7 +187,9 @@ module.exports = {
         ]);
         signer.references[0].isEmptyUri = true;
         signer.signingKey = key;
+        console.log(signer)
         signer.computeSignature(xml);
+        console.log(signer)
 
         return signer.getSignedXml();
     },

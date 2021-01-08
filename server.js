@@ -56,6 +56,33 @@
         return next(false);
     });
 
+    server.post('/api/CancelamentoNFe', function (req, res, next) {
+
+        res.header('Content-Type', 'application/json');
+
+        try {
+
+            var module = require('./api/CancelamentoNFe/CancelamentoNFe.js');
+
+            if (req.body.attachments && req.body.attachments.webhook) {
+
+                module.send(req.body);
+                res.send({ success: true });
+
+            } else {
+
+                module.send(req.body, function (response) {
+                    res.send(response);
+                });
+            }
+
+        } catch (e) {
+            res.send(new errors.InternalServerError(e.stack));
+        }
+
+        return next(false);
+    });  
+
     /**
      * POST - Envio Lote RPS.
      */
@@ -126,8 +153,8 @@
     /**
      * Init server.
      */
-    server.listen(3000, function() {
-        console.log('Server running at port 3000!');
+    server.listen(3030, function() {
+        console.log('Server running at port 3030!');
     });
 
 }());

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p1:CancelamentoNFeRequest xmlns:p1="http://www.prefeitura.sp.gov.br/nfe" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Cabecalho Versao="1">
+    <CPFCNPJRemetente>
+        <CNPJ>{{cnpjRemetente}}</CNPJ>
+    </CPFCNPJRemetente>
+</Cabecalho>
+<Detalhe>
+    <ChaveNFe>
+        <InscricaoPrestador>{{incricaoPrestador}}</InscricaoPrestador>
+        <NumeroNFe>{{numeroRps}}</NumeroNFe>
+    </ChaveNFe>
+</Detalhe>
+</p1:CancelamentoNFeRequest>
