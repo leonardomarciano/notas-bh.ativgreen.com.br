@@ -5,10 +5,20 @@
     var restify = require('restify'),
         errors = require('restify-errors'),
         server = restify.createServer();
+    var corsMiddleware = require('restify-cors-middleware');
+
+    var cors = corsMiddleware({
+        preflightMaxAge: 5,
+        origins: ['*'],
+        allowHeaders:['X-App-Version'],
+        exposeHeaders:[]
+      });
 
     server.use(restify.plugins.authorizationParser());
     server.use(restify.plugins.queryParser());
     server.use(restify.plugins.bodyParser());
+    server.pre(cors.preflight);
+    server.use(cors.actual);
 
     /**
      * Validate authentication.
