@@ -1,7 +1,7 @@
 module.exports = {
 
     /**
-     * Find NFe.
+     * Send Lote RPS.
      *
      * @param {object} data
      * @param {function} cb
@@ -18,7 +18,6 @@ module.exports = {
         config = util.getConfig();
 
         cert = fs.readFileSync(config.certPath);
-        // key = fs.readFileSync(config.keyPath);
         key = util.readPrivateKeyFromProtectedPem(config.keyPath, '090820');
         messageTemplate = fs.readFileSync(__dirname + '/message.xml', 'utf8');
         envelopeTemplate = fs.readFileSync(__dirname + '/envelope.xml', 'utf8');
@@ -26,6 +25,10 @@ module.exports = {
         // Fixed data.
         data.cnpjRemetente = config.cnpj;
         data.incricaoPrestador = config.incricaoMunicipal;
+
+        console.log(data)
+        // Add sign.
+        data.assinatura = util.buildCancelationRPSSign(key, data);
 
         // Build envelope.
         envelope = util.buildEnvelope(cert, key, data, messageTemplate, envelopeTemplate);

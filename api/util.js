@@ -90,6 +90,32 @@ module.exports = {
     },
 
     /**
+     * Build CancelationRPS sign.
+     *
+     * @param {string} key
+     * @param data
+     * @returns {string}
+     */
+    buildCancelationRPSSign: function (key, data) {
+
+        var stringToSign, crypto, signer;
+
+        stringToSign = '';
+
+        stringToSign += data.incricaoPrestador;
+        stringToSign += this._format(data.numeroRps, false, 12, '0', 'left');
+       
+
+
+        crypto = require('crypto');
+        signer = crypto.createSign('RSA-SHA1');
+
+        signer.update(Buffer.from(stringToSign, 'ascii'));
+
+        return signer.sign(key, 'base64');
+    },
+
+    /**
      * Get configuration.
      * 
      * @returns {object}
