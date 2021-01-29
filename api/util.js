@@ -18,10 +18,14 @@ module.exports = {
 
         message = mustache.render(messageTemplate, data);
 
-        return mustache.render(envelopeTemplate, {
-            message: this.signXML(cert, key, message)
+        
+
+        return this.signXML(cert, key, message)
+
+        // return mustache.render(envelopeTemplate, {
+        //     message: this.signXML(cert, key, message)
             
-        });
+        // });
     },
 
     /**
@@ -35,7 +39,7 @@ module.exports = {
     buildRequestOptions: function (cert, key, body) {
         return {
             method: 'POST',
-            url: 'https://nfe.prefeitura.sp.gov.br/ws/lotenfe.asmx',
+            url: 'https://bhisshomologa.pbh.gov.br/bhiss-ws/nfse?wsdl',
             cert: cert,
             key: key,
             headers: {
@@ -54,32 +58,30 @@ module.exports = {
      * @returns {string}
      */
     buildRPSSign: function (key, data) {
-
         var stringToSign, crypto, signer;
 
         stringToSign = '';
 
-        stringToSign += data.incricaoPrestador;
-        stringToSign += this._format(data.serieRps, false, 5, ' ', 'right');
-        stringToSign += this._format(data.numeroRps, false, 12, '0', 'left');
-        stringToSign += this._format(data.dataEmissao, true);
-        stringToSign += data.tributacaoRps;
-        stringToSign += data.statusRps;
-        stringToSign += data.issRetido ? 'S' : 'N';
-        stringToSign += this._format(data.valorServicos, true, 15, '0', 'left');
-        stringToSign += this._format(data.valorDeducoes, true, 15, '0', 'left');
-        stringToSign += this._format(data.codigoServico, false, 5, '0', 'left');
+        stringToSign += data.InscricaoMunicipal;
+        // stringToSign += this._format(data.NumeroLote, false, 5, ' ', 'right');
+        // stringToSign += this._format(data.dataEmissao, true);
+        // stringToSign += data.tributacaoRps;
+        // stringToSign += data.statusRps;
+        // stringToSign += data.issRetido ? 'S' : 'N';
+        // stringToSign += this._format(data.valorServicos, true, 15, '0', 'left');
+        // stringToSign += this._format(data.valorDeducoes, true, 15, '0', 'left');
+        // stringToSign += this._format(data.codigoServico, false, 5, '0', 'left');
 
-        if (data.tomador.cpf) {
-            stringToSign += '1';
-            stringToSign += this._format(data.tomador.cpf, false, 14, '0', 'left');
-        } else if (data.tomador.cnpj) {
-            stringToSign += '2';
-            stringToSign += this._format(data.tomador.cnpj, false, 14, '0', 'left');
-        } else {
-            stringToSign += '3';
-            stringToSign += this._format('', false, 14, '0', 'left');
-        }
+        // if (data.tomador.cpf) {
+        //     stringToSign += '1';
+        //     stringToSign += this._format(data.tomador.cpf, false, 14, '0', 'left');
+        // } else if (data.tomador.cnpj) {
+        //     stringToSign += '2';
+        //     stringToSign += this._format(data.tomador.cnpj, false, 14, '0', 'left');
+        // } else {
+        //     stringToSign += '3';
+        //     stringToSign += this._format('', false, 14, '0', 'left');
+        // }
 
         crypto = require('crypto');
         signer = crypto.createSign('RSA-SHA1');
@@ -213,9 +215,7 @@ module.exports = {
         ]);
         signer.references[0].isEmptyUri = true;
         signer.signingKey = key;
-        console.log(signer)
         signer.computeSignature(xml);
-        console.log(signer)
 
         return signer.getSignedXml();
     },

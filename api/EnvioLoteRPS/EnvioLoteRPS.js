@@ -9,7 +9,7 @@ module.exports = {
     send: function (data, cb) {
 
         var request, fs, config, util, cert, key, messageTemplate, envelopeTemplate, 
-            envelope, options;
+            envelope, xml, options;
 
         request = require('request');
         fs = require('fs');
@@ -18,7 +18,7 @@ module.exports = {
         config = util.getConfig();
         
         cert = fs.readFileSync(config.certPath);
-        key = util.readPrivateKeyFromProtectedPem(config.keyPath, '090820');
+        key = util.readPrivateKeyFromProtectedPem(config.keyPath, 'fv100954');
         messageTemplate = fs.readFileSync(__dirname + '/message.xml', 'utf8');
         envelopeTemplate = fs.readFileSync(__dirname + '/envelope.xml', 'utf8');
 
@@ -26,20 +26,24 @@ module.exports = {
         data.cnpjRemetente = config.cnpj;
 
         // Add sign and Incricao Municipal.
-        data.rps.forEach(function (rps) {
-            rps.incricaoPrestador = config.incricaoMunicipal;
-            rps.assinatura = util.buildRPSSign(key, rps);
-        });
+        console.log(data)   
+            data.incricaoPrestador = config.incricaoMunicipal;
+            data.assinatura = util.buildRPSSign(key, data);
 
         // Build envelope.
         envelope = util.buildEnvelope(cert, key, data, messageTemplate, envelopeTemplate);
+        
+       cb(envelope)
 
-        // Build request options.
-        options = util.buildRequestOptions(cert, key, envelope);
 
-        // Send response.
-        request(options, function (error, response, body) {
-            util.handleResponse(error, body, cb, data.attachments);
-        });
+        // // Build request options.
+        // options = util.buildRequestOptions(cert, key, envelope);
+
+        // // Send response.
+        // request(options, function (error, response, body) {
+        //     util.handleResponse(error, body, cb, data.attachments);
+        // });
+
+      
     }
 };

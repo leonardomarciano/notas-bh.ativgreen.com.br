@@ -103,19 +103,10 @@
         try {
 
             var module = require('./api/EnvioLoteRPS/EnvioLoteRPS.js');
-
-            if (req.body.attachments && req.body.attachments.webhook) {
-
-                module.send(req.body);
-                res.send({ success: true });
-
-            } else {
-
                 module.send(req.body, function (response) {
-                    res.send(response);
+                    res.setHeader('content-type', 'application/xml');
+                    res.sendRaw(response);
                 });
-            }
-
         } catch (e) {
             res.send(new errors.InternalServerError(e.stack));
         }
@@ -163,7 +154,7 @@
     /**
      * Init server.
      */
-    server.listen(3333, function() {
+    server.listen(3131, function() {
         console.log('Server running at port 3030!');
     });
 

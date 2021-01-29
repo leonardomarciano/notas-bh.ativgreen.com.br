@@ -1,5 +1,5 @@
 module.exports = {
-    cnpj: '21091565000100',// Ex: 012345678901234
-    incricaoMunicipal: '50970062', // Ex: 01234567
+    cnpj: '03643856003199',// Ex: 012345678901234
+    incricaoMunicipal: '0402994011X', // Ex: 01234567
     webhook: '',// Ex: https://meuwebhook.com/recebe/retorno/nfe
 };
