@@ -1,8 +1,7 @@
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:nfe="http://www.abrasf.org.br/nfse.xsd">
     <soapenv:Header/>
     <soapenv:Body>
-        <nfe:EnviarLoteRpsEnvio>
-            <nfe:VersaoSchema>1</nfe:VersaoSchema>
+        <nfe:EnviarLoteRpsEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">
             <nfe:MensagemXML><![CDATA[{{{message}}}]]></nfe:MensagemXML>
         </nfe:EnviarLoteRpsEnvio>
     </soapenv:Body>

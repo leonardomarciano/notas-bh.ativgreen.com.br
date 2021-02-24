@@ -1,28 +1,31 @@
 <?xml version="1.0"?>
-<EnviarLoteRpsEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">   
-        <NumeroLote>{{NumeroLote}}</NumeroLote>
-        <Cnpj>{{Cnpj}}</Cnpj>
+<EnviarLoteRpsEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">
+    <LoteRps Id="lote" versao="1.00">
+        <NumeroLote>{{transacao}}</NumeroLote>
+        <CPFCNPJRemetente>
+         <CNPJ>{{cnpjRemetente}}</CNPJ>
+        </CPFCNPJRemetente>
         <InscricaoMunicipal>{{InscricaoMunicipal}}</InscricaoMunicipal>
-        <QuantidadeRps>{{QuantidadeRps}}</QuantidadeRps>
-        <ListaRp>
+        <QuantidadeRps>{{qtdRps}}</QuantidadeRps>
+    <ListaRps>
+    {{#rps}}
     <Rps>
-        <InfRps>
+        <InfRps Id="rps:1ABCDZ">
             <IdentificacaoRps>
-                <Numero>{{NumeroLote}}</Numero>
-                <Serie>{{Serie}}</Serie>
-                <Tipo>{{Tipo}}</Tipo>
+                <Numero>{{numeroRps}}</Numero>
+                <Serie>{{serieRps}}</Serie>
+                <Tipo>{{tipoIdentificacaoRps}}</Tipo>
             </IdentificacaoRps>
-
-        <DataEmissao>{{DataEmissao}}</DataEmissao>
-        <NaturezaOperacao>{{NaturezaOperacao}}</NaturezaOperacao>
-        <RegimeEspecialTributacao>{{RegimeEspecialTributacao}}</RegimeEspecialTributacao>
-        <OptanteSimplesNacional>{{OptanteSimplesNacional}}</OptanteSimplesNacional>
-        <IncentivadorCultural>{{IncentivadorCultural}}</IncentivadorCultural>
-        <Status>{{Status}}</Status>
+            <DataEmissao>{{dataEmissao}}</DataEmissao>
+            <NaturezaOperacao>{{NaturezaOperacao}}</NaturezaOperacao>
+            <RegimeEspecialTributacao>{{tributacaoRps}}</RegimeEspecialTributacao>
+            <OptanteSimplesNacional>{{OptanteSimplesNacional}}</OptanteSimplesNacional>
+            <IncentivadorCultural>{{IncentivadorCultural}}</IncentivadorCultural>
+            <Status>{{statusRps}}</Status>
             <Servico>
                 <Valores>
-                    <ValorServicos>{{ValorServicos}}</ValorServicos>
-                    <ValorDeducoes>{{ValorDeducoes}}</ValorDeducoes>
+                    <ValorServicos>{{valorServicos}}</ValorServicos> 
+                    <ValorDeducoes>{{valorDeducoes}}</ValorDeducoes> 
                     <ValorPis>{{ValorPis}}</ValorPis>
                     <ValorCofins>{{ValorCofins}}</ValorCofins>
                     <ValorInss>{{ValorInss}}</ValorInss>
@@ -31,37 +34,42 @@
                     <IssRetido>{{IssRetido}}</IssRetido>
                     <ValorIss>{{ValorIss}}</ValorIss>
                     <OutrasRetencoes>{{OutrasRetencoes}}</OutrasRetencoes>
-                    <Aliquota>{{Aliquota}}</Aliquota>
+                    <Aliquota>{{aliquota}}</Aliquota>
                     <DescontoIncondicionado>{{DescontoIncondicionado}}</DescontoIncondicionado>
                     <DescontoCondicionado>{{DescontoCondicionado}}</DescontoCondicionado>
                 </Valores>
-                <ItemListaServico>{{ItemListaServico}}</ItemListaServico>
-                <CodigoTributacaoMunicipio>{{CodigoTributacaoMunicipio}}</CodigoTributacaoMunicipio>
-                <Discriminacao>{{Discriminacao}}</Discriminacao>
-                <CodigoMunicipio>{{CodigoMunicipioUm}}</CodigoMunicipio>
-            </Servico>
-        <Prestador>
-            <Cnpj>{{Cnpj}}</Cnpj>
-            <InscricaoMunicipal>{{InscricaoMunicipal}}</InscricaoMunicipal>
-        </Prestador>
-        <Tomador>
-            <IdentificacaoTomador>
-                <CpfCnpj>
-                <Cpf>{{Cpf}}</Cpf>
-                </CpfCnpj>
-            </IdentificacaoTomador>
-            <RazaoSocial>{{RazaoSocial}}</RazaoSocial>
-            <Endereco>
-                <Endereco>{{Endereco}}</Endereco>
-                <Numero>{{Numero}}</Numero>
-                <Bairro>{{Bairro}}</Bairro>
+                <ItemListaServico>{{codigoServico}}</ItemListaServico>
+                <CodigoTributacaoMunicipio>{{CodigoTributacaoMunicipio}} </CodigoTributacaoMunicipio>
+                <Discriminacao>{{discriminacao}}</Discriminacao>
                 <CodigoMunicipio>{{CodigoMunicipio}}</CodigoMunicipio>
-                <Uf>{{Uf}}</Uf>
-                <Cep>{{Cep}}</Cep>
-            </Endereco>
-        </Tomador>
-    </InfRps>
+            </Servico>
+            <Prestador>
+                <Cnpj>{{cnpjRemetente}}</Cnpj>
+                <InscricaoMunicipal>{{InscricaoMunicipal}}</InscricaoMunicipal>
+            </Prestador>
+            <Tomador>
+                 <IdentificacaoTomador>
+                  <CpfCnpj>
+                    <Cnpj>{{tomador.cnpj}}</Cnpj>
+                    </CpfCnpj>
+                    <InscricaoMunicipal>{{tomador.InscricaoMunicipal}}</InscricaoMunicipal>
+                </IdentificacaoTomador>
+                <RazaoSocial>{{tomador.razaoSocial}}</RazaoSocial>
+                <Endereco>
+                    <Endereco>{{tomador.endereco.tipoLogradouro}} {{tomador.endereco.logradouro}}</Endereco>
+                 <Numero>{{tomador.endereco.numero}}</Numero>
+                 <Complemento>{{tomador.endereco.complemento}}</Complemento>
+                 <Bairro>{{tomador.endereco.bairro}}</Bairro>
+                 <CodigoMunicipio>{{tomador.endereco.CodigoMunicipio}}</CodigoMunicipio>
+                 <Uf>{{tomador.endereco.uf}}</Uf>
+                 <Cep>{{tomador.endereco.cep}}</Cep>
+                </Endereco>
+            </Tomador>
+
+        </InfRps>
+        <Assinatura>{{assinatura}}</Assinatura>
     </Rps>
-    </ListaRp>
-    <Assinatura>{{assinatura}}</Assinatura>
+    {{/rps}}
+    </ListaRps>
+    </LoteRps>
 </EnviarLoteRpsEnvio>
