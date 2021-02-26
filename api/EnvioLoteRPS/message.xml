@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <EnviarLoteRpsEnvio xmlns="http://www.abrasf.org.br/nfse.xsd">
-    <LoteRps Id="lote" versao="1.00">
+    <LoteRps Id="{{lote}}" versao="1.00">
         <NumeroLote>{{transacao}}</NumeroLote>
         <CPFCNPJRemetente>
          <CNPJ>{{cnpjRemetente}}</CNPJ>
@@ -10,7 +10,7 @@
     <ListaRps>
     {{#rps}}
     <Rps>
-        <InfRps Id="rps:1ABCDZ">
+        <InfRps Id="rps:{{serieRps}}{{numeroRps}}">
             <IdentificacaoRps>
                 <Numero>{{numeroRps}}</Numero>
                 <Serie>{{serieRps}}</Serie>
@@ -39,7 +39,7 @@
                     <DescontoCondicionado>{{DescontoCondicionado}}</DescontoCondicionado>
                 </Valores>
                 <ItemListaServico>{{codigoServico}}</ItemListaServico>
-                <CodigoTributacaoMunicipio>{{CodigoTributacaoMunicipio}} </CodigoTributacaoMunicipio>
+                <CodigoTributacaoMunicipio>{{CodigoTributacaoMunicipio}}</CodigoTributacaoMunicipio>
                 <Discriminacao>{{discriminacao}}</Discriminacao>
                 <CodigoMunicipio>{{CodigoMunicipio}}</CodigoMunicipio>
             </Servico>
